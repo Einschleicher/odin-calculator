@@ -1,12 +1,29 @@
 const display = document.querySelector("#display");
 const numbers = document.querySelectorAll(".number");
+const functions = document.querySelectorAll("#functions button");
+const equal = document.querySelector("#equ");
+const clear = document.querySelector("#clear");
 
 let displayValue = 0;
 
 numbers.forEach((number, index) => {
-    number.addEventListener("click", function(e) {
+    number.addEventListener("click", function() {
         fillDisplay(index);
     })
+})
+
+functions.forEach(fnction => {
+    fnction.addEventListener("click", function() {
+        firstNumber = displayValue;
+        displayValue = 0;
+        operator = fnction.getAttribute("id");
+    })
+})
+
+equal.addEventListener("click", function() {
+    secondNumber = displayValue;
+    displayValue = operate(firstNumber, operator, secondNumber);
+    display.innerText = displayValue;
 })
 
 let firstNumber;
@@ -33,10 +50,10 @@ function fillDisplay(buttonIndex) {
 }
 
 function operate(a, operator, b) {
-    if (operator === "+") return add(a, b);
-    if (operator === "-") return sub(a, b);
-    if (operator === "*") return mul(a, b);
-    if (operator === "/") return div(a, b);
+    if (operator === "add") return add(a, b);
+    if (operator === "sub") return sub(a, b);
+    if (operator === "mul") return mul(a, b);
+    if (operator === "div") return div(a, b);
 }
 
 function add(a, b) {
