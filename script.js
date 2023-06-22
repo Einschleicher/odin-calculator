@@ -5,6 +5,7 @@ const equal = document.querySelector("#equ");
 const clear = document.querySelector("#clear");
 
 let displayValue = 0;
+let functionSwitch = 0;
 
 numbers.forEach((number, index) => {
     number.addEventListener("click", function() {
@@ -17,12 +18,20 @@ functions.forEach(fnction => {
         firstNumber = displayValue;
         displayValue = 0;
         operator = fnction.getAttribute("id");
+        functionSwitch = 1;
     })
 })
 
 equal.addEventListener("click", function() {
+    if (functionSwitch === 0) return;
     secondNumber = displayValue;
     displayValue = operate(firstNumber, operator, secondNumber);
+    display.innerText = displayValue;
+    functionSwitch = 0;
+})
+
+clear.addEventListener("click", function() {
+    displayValue = 0;
     display.innerText = displayValue;
 })
 
