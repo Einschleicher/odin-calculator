@@ -1,6 +1,26 @@
+const display = document.querySelector("#display");
+const numbers = document.querySelectorAll(".number");
+
+let displayValue = 0;
+
+numbers.forEach((number, index) => {
+    number.addEventListener("click", function(e) {
+        fillDisplay(index);
+    })
+})
+
 let firstNumber;
 let operator;
 let secondNumber;
+
+function fillDisplay(buttonIndex) {
+    if (displayValue === 0) {
+        // Button #1 - #9
+        if (buttonIndex !== 9) display.innerText = buttonIndex + 1;
+        // Last button #0
+        else display.innerText = 0;
+    }
+}
 
 function operate(a, operator, b) {
     if (operator === "+") return add(a, b);
