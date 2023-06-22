@@ -19,6 +19,16 @@ function fillDisplay(buttonIndex) {
         if (buttonIndex !== 9) display.innerText = buttonIndex + 1;
         // Last button #0
         else display.innerText = 0;
+
+        displayValue = parseInt(display.innerText);
+    }
+    else {
+        // Button #1 - #9
+        if (buttonIndex !== 9) display.innerText = displayValue * 10 + buttonIndex + 1;
+        // Last button #0
+        else display.innerText = displayValue * 10;
+
+        displayValue = parseInt(display.innerText);
     }
 }
 
