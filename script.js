@@ -6,29 +6,38 @@ const clear = document.querySelector("#clear");
 
 let displayValue = 0;
 let functionSwitch = 0;
+let InputSwitch = 0;
 
 numbers.forEach((number, index) => {
     number.addEventListener("click", function() {
         fillDisplay(index);
+        InputSwitch = 1;
     })
 })
 
 functions.forEach(fnction => {
     fnction.addEventListener("click", function() {
+        if (InputSwitch === 0) {
+            operator = fnction.getAttribute("id");
+            return;
+        }
         if (functionSwitch === 0) {
             firstNumber = displayValue;
             displayValue = 0;
             operator = fnction.getAttribute("id");
-            functionSwitch = 1;            
+            functionSwitch = 1;
+            InputSwitch = 0;            
         }
         else {
             secondNumber = displayValue;
             displayValue = operate(firstNumber, operator, secondNumber);
             display.innerText = displayValue;
             operator = fnction.getAttribute("id");
+            
             firstNumber = displayValue;
             displayValue = 0;
-            functionSwitch = 1;           
+            functionSwitch = 1;
+            InputSwitch = 0;           
         }
 
     })
@@ -36,10 +45,16 @@ functions.forEach(fnction => {
 
 equal.addEventListener("click", function() {
     if (functionSwitch === 0) return;
+
     secondNumber = displayValue;
     displayValue = operate(firstNumber, operator, secondNumber);
     display.innerText = displayValue;
-    functionSwitch = 0;
+
+    // Function copypasta
+    firstNumber = displayValue;
+    displayValue = 0;
+    functionSwitch = 1;
+    InputSwitch = 0;   
 })
 
 clear.addEventListener("click", function() {
@@ -47,6 +62,8 @@ clear.addEventListener("click", function() {
     firstNumber = 0;
     operator = 0;
     secondNumber = 0;
+    functionSwitch = 0;
+    InputSwitch = 0;
     display.innerText = displayValue;
 })
 
