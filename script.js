@@ -15,10 +15,22 @@ numbers.forEach((number, index) => {
 
 functions.forEach(fnction => {
     fnction.addEventListener("click", function() {
-        firstNumber = displayValue;
-        displayValue = 0;
-        operator = fnction.getAttribute("id");
-        functionSwitch = 1;
+        if (functionSwitch === 0) {
+            firstNumber = displayValue;
+            displayValue = 0;
+            operator = fnction.getAttribute("id");
+            functionSwitch = 1;            
+        }
+        else {
+            secondNumber = displayValue;
+            displayValue = operate(firstNumber, operator, secondNumber);
+            display.innerText = displayValue;
+            operator = fnction.getAttribute("id");
+            firstNumber = displayValue;
+            displayValue = 0;
+            functionSwitch = 1;           
+        }
+
     })
 })
 
@@ -32,6 +44,9 @@ equal.addEventListener("click", function() {
 
 clear.addEventListener("click", function() {
     displayValue = 0;
+    firstNumber = 0;
+    operator = 0;
+    secondNumber = 0;
     display.innerText = displayValue;
 })
 
