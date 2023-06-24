@@ -31,7 +31,7 @@ functions.forEach(fnction => {
         else {
             secondNumber = displayValue;
             displayValue = operate(firstNumber, operator, secondNumber);
-            display.innerText = displayValue;
+            display.innerText = round(displayValue);
             operator = fnction.getAttribute("id");
             
             firstNumber = displayValue;
@@ -47,11 +47,26 @@ equal.addEventListener("click", function() {
     if (functionSwitch === 0) return;
 
     secondNumber = displayValue;
-    displayValue = operate(firstNumber, operator, secondNumber);
-    display.innerText = displayValue;
+
+    if (operator === "div" && secondNumber === 0) {
+        displayValue = "KEKW CR4$H3D";
+        display.innerText = displayValue;
+        firstNumber = 0;
+        displayValue = 0;
+        functionSwitch = 0;
+        InputSwitch = 0;
+        return;  
+    }
+    else { 
+        displayValue = operate(firstNumber, operator, secondNumber);
+
+        display.innerText = round(displayValue);
+        firstNumber = displayValue;    
+    }
+
 
     // Function copypasta
-    firstNumber = displayValue;
+
     displayValue = 0;
     functionSwitch = 1;
     InputSwitch = 0;   
@@ -90,7 +105,15 @@ function fillDisplay(buttonIndex) {
     }
 }
 
+function round(displayValue) {
+    if (displayValue.toString().length >= 12) {
+        return displayValue.toPrecision(12);
+    }
+    else return displayValue;
+}
+
 function operate(a, operator, b) {
+    if (InputSwitch === 0 && functionSwitch === 0) return displayValue;
     if (operator === "add") return add(a, b);
     if (operator === "sub") return sub(a, b);
     if (operator === "mul") return mul(a, b);
