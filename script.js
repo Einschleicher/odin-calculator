@@ -1,13 +1,16 @@
+// Various queryselectors
 const display = document.querySelector("#display");
 const numbers = document.querySelectorAll(".number");
 const functions = document.querySelectorAll("#functions button");
 const equal = document.querySelector("#equ");
 const clear = document.querySelector("#clear");
 
-let displayValue = 0;
-let functionSwitch = 0;
-let InputSwitch = 0;
+// Ini global variables
+let displayValue = 0; // Pure Ini
+let functionSwitch = 0; // Check if a function has been called, resets to 0 after a calculation
+let InputSwitch = 0; // Check if a number button has been pressed, resets to 0 after a calculation
 
+// Add eventlisteners for the number-buttons [0] - [9]
 numbers.forEach((number, index) => {
     number.addEventListener("click", function() {
         fillDisplay(index);
@@ -15,6 +18,7 @@ numbers.forEach((number, index) => {
     })
 })
 
+// Add eventlisteners for the four function-buttons [+] [-] [*] [/]
 functions.forEach(fnction => {
     fnction.addEventListener("click", function() {
         if (InputSwitch === 0) {
@@ -43,6 +47,7 @@ functions.forEach(fnction => {
     })
 })
 
+// Add eventlistener for the [=] Button
 equal.addEventListener("click", function() {
     if (functionSwitch === 0) return;
 
@@ -72,6 +77,7 @@ equal.addEventListener("click", function() {
     InputSwitch = 0;   
 })
 
+// Add eventlistener for the clear-button [AC]
 clear.addEventListener("click", function() {
     displayValue = 0;
     firstNumber = 0;
@@ -82,10 +88,12 @@ clear.addEventListener("click", function() {
     display.innerText = displayValue;
 })
 
+// Ini global variables for the operation
 let firstNumber;
 let operator;
 let secondNumber;
 
+// Function to fill the display
 function fillDisplay(buttonIndex) {
     if (displayValue === 0) {
         // Button #1 - #9
@@ -105,6 +113,7 @@ function fillDisplay(buttonIndex) {
     }
 }
 
+// Function to round numbers above 12 digits
 function round(displayValue) {
     if (displayValue.toString().length >= 12) {
         return displayValue.toPrecision(12);
@@ -112,6 +121,7 @@ function round(displayValue) {
     else return displayValue;
 }
 
+// Functions to calculate
 function operate(a, operator, b) {
     if (InputSwitch === 0 && functionSwitch === 0) return displayValue;
     if (operator === "add") return add(a, b);
